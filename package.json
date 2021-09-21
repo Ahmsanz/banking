@@ -1,0 +1,25 @@
+{
+  "name": "banking",
+  "version": "1.0.0",
+  "description": "Small banking app backend service",
+  "main": "app.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "banking",
+    "node",
+    "typescript",
+    "backend",
+    "ThePowerMBA"
+  ],
+  "author": "Ahmsanz",
+  "license": "ISC",
+  "devDependencies": {
+    "ts-node": "^10.2.1",
+    "typescript": "^4.4.3"
+  },
+  "dependencies": {
+    "mongoose": "^6.0.7"
+  }
+}
