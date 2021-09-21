@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose';
 
-export const Account: Schema = new Schema(
+export const AccountSchema: Schema = new Schema(
     {
         owner: {
             type: Schema.Types.ObjectId,

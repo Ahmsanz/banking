@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose';
 
-export const Connection: Schema = new Schema(
+export const ConnectionSchema: Schema = new Schema(
     {
         owner: {
             type: Schema.Types.ObjectId,
