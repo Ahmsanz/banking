@@ -1,9 +1,15 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import accountRouter from './api/routes/account.route';
+import { connect } from 'mongoose';
+import { mongoUri } from './config/config';
 
 const app = express();
 const PORT = 3000;
+
+connect(mongoUri as string)
+    .then(() => console.log('Connection to Mongo DB established'))
+
 
 app.use(bodyParser.urlencoded({ extended: false }));
 

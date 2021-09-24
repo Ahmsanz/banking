@@ -3,3 +3,6 @@
 
 # Output files
 /build
+
+# Sensitive info
+.env

@@ -10,7 +10,8 @@ export const createAccount = (req: Request, res: Response) => {
         const newAccount = new Account({
             owner,
             number,
-            funds
+            funds,
+            opened: new Date()
         });
 
         Account.create(newAccount);
