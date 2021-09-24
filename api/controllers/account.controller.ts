@@ -1,10 +1,10 @@
-import { AccountInterface } from '../interfaces/account.interface';
+import { AccountInterface } from '../../interfaces/account.interface';
 import { Request, Response } from 'express';
 import { AccountSchema } from '../schemas/account.schema';
 import { model } from 'mongoose';
 
 const Account = model('account', AccountSchema);
-exports.create = (req: Request, res: Response) => {
+export const createAccount = (req: Request, res: Response) => {
     try {
         const { owner, number, funds }: AccountInterface = req.body;
         const newAccount = new Account({
@@ -21,18 +21,19 @@ exports.create = (req: Request, res: Response) => {
     }
 }
 
-exports.readAll = (req: Request, res: Response) => {
+export const readAllAccounts = (req: Request, res: Response) => {    
     try {
+        console.log('reaching account endpoint')
         const { query } = req;
         const accounts = Account.find({query});
-
-        return res.status(200).send(accounts);
+        console.log(accounts)
+        return res.status(200)
     } catch (err) {
         throw err;
     }    
 }
 
-exports.update = (req: Request, res: Response) => {
+export const updateAccount = (req: Request, res: Response) => {
     try {
         const { _id } = req.params;
         const existingAccount = Account.findById(_id);
@@ -48,7 +49,7 @@ exports.update = (req: Request, res: Response) => {
     }
 }
 
-exports.delete = (req: Request, res: Response) => {
+export const deleteAccount = (req: Request, res: Response) => {
     try {
         const { _id } = req.params;
     
