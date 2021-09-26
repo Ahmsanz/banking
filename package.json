@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "test",
-    "start:dev": "tsc-watch --onSuccess \"node ./dist/main.js\""
+    "start:dev": "tsc-watch --onSuccess \"nodemon --require dotenv/config ./build/main.js\""
   },
   "keywords": [
     "banking",

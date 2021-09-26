@@ -1,7 +1,7 @@
-import { User } from "./user.interface";
+import { UserInterface } from "./user.interface";
 
 export interface AccountInterface {
-    owner: User;
+    owner: UserInterface;
     number: number;
     funds: number;    
 }

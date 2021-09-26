@@ -2,39 +2,40 @@ import { AccountInterface } from '../../interfaces/account.interface';
 import { Request, Response } from 'express';
 import { AccountSchema } from '../schemas/account.schema';
 import { model } from 'mongoose';
+import { accountNumberAssigner } from '../services/account.service';
 
 const Account = model('account', AccountSchema);
-export const createAccount = (req: Request, res: Response) => {
+export const createAccount = async (req: Request, res: Response): Promise<Response<AccountInterface[]>> => {
     try {
-        const { owner, number, funds }: AccountInterface = req.body;
+        const { owner, funds }: AccountInterface = req.body;
         const newAccount = new Account({
             owner,
-            number,
+            number: accountNumberAssigner(),
             funds,
             opened: new Date()
         });
 
-        Account.create(newAccount);
+        const accountSaved = await Account.create(newAccount);
 
-        return res.status(201).send('New account has been created');
+        return res.status(201).send(accountSaved);
     } catch (err) {
         throw err;
     }
 }
 
-export const readAllAccounts = (req: Request, res: Response) => {    
+export const readAllAccounts = async (req: Request, res: Response): Promise<Response<AccountInterface[]>> => {    
     try {
-        console.log('reaching account endpoint')
         const { query } = req;
-        const accounts = Account.find({query});
-        console.log(accounts)
-        return res.status(200)
+        const accounts = await Account.find({query})
+            .populate('owner');
+        
+        return res.status(200).send(accounts);
     } catch (err) {
         throw err;
     }    
 }
 
-export const updateAccount = (req: Request, res: Response) => {
+export const updateAccount = async (req: Request, res: Response): Promise<Response<AccountInterface>> => {
     try {
         const { _id } = req.params;
         const existingAccount = Account.findById(_id);
@@ -42,7 +43,7 @@ export const updateAccount = (req: Request, res: Response) => {
 
         const { funds } = req.body;
 
-        const updatedAccount = Account.updateOne({ _id }, { funds });
+        const updatedAccount = await Account.updateOne({ _id }, { funds });
 
         return res.status(204).send(updatedAccount);
     } catch (err) {
@@ -50,7 +51,7 @@ export const updateAccount = (req: Request, res: Response) => {
     }
 }
 
-export const deleteAccount = (req: Request, res: Response) => {
+export const deleteAccount = (req: Request, res: Response): Response<string> => {
     try {
         const { _id } = req.params;
     

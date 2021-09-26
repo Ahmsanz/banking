@@ -13,6 +13,10 @@ export const UserSchema: Schema = new Schema(
         age: {
             type: Number,
             required: true,
+        },
+        password: {
+            type: String,
+            required: true
         }
     },
     { timestamps: true }
