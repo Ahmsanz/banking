@@ -15,11 +15,11 @@ export const AccountSchema: Schema = new Schema(
             type: Date,
             required: true,
         },
-        funds: [{
+        funds: {
             type: Number,
             required: false,
             default: 0,
-        }]
+        }
     },
     { timestamps: true }
 )

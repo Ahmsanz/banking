@@ -10,6 +10,6 @@ userRouter.get('/', readAllUsers);
 
 userRouter.put('/:_id', updateUser);
 
-userRouter.delete('/:id', deleteUser);
+userRouter.delete('/:_id', deleteUser);
 
 export default userRouter;

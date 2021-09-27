@@ -43,7 +43,7 @@ export const updateAccount = async (req: Request, res: Response): Promise<Respon
 
         const { funds } = req.body;
 
-        const updatedAccount = await Account.updateOne({ _id }, { funds });
+        const updatedAccount = await Account.findByIdAndUpdate(_id , { funds });
 
         return res.status(204).send(updatedAccount);
     } catch (err) {
@@ -51,11 +51,11 @@ export const updateAccount = async (req: Request, res: Response): Promise<Respon
     }
 }
 
-export const deleteAccount = (req: Request, res: Response): Response<string> => {
+export const deleteAccount = async (req: Request, res: Response): Promise<Response<string>> => {
     try {
         const { _id } = req.params;
     
-        Account.deleteOne({_id});
+        await Account.findByIdAndRemove(_id);
 
         return res.status(204).send('Account deleted');
     } catch (err) {

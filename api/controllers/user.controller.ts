@@ -41,21 +41,21 @@ export const updateUser = async (req: Request, res: Response): Promise<Response<
         const existingUser = User.findById(_id);
         if (!existingUser) return res.status(404).send('The specified user does not exist. Try a different user.');
 
-        const { funds } = req.body;
+        const { firstName, lastName } = req.body;
 
-        const updatedUser = await User.updateOne({ _id }, { funds });
-
+        const updatedUser = await User.findByIdAndUpdate(_id, { firstName, lastName }).then( updatedUser => updatedUser);
+        
         return res.status(204).send(updatedUser);
     } catch (err) {
         throw err;
     }
 }
 
-export const deleteUser = (req: Request, res: Response): Response<string> => {
+export const deleteUser = async (req: Request, res: Response): Promise<Response<string>> => {
     try {
-        const { id } = req.params;
+        const { _id } = req.params;
 
-        User.findOneAndRemove( { _id: `ObjectId('${id}')`} );
+        await User.findByIdAndRemove(_id);
 
         return res.status(204).send('User deleted');
     } catch (err) {

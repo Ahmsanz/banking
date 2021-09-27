@@ -8,8 +8,8 @@ accountRouter.post('/', createAccount);
 
 accountRouter.get('/', readAllAccounts);
 
-accountRouter.put('/:id', updateAccount);
+accountRouter.put('/:_id', updateAccount);
 
-accountRouter.delete('/:id', deleteAccount);
+accountRouter.delete('/:_id', deleteAccount);
 
 export default accountRouter;
