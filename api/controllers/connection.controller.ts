@@ -60,9 +60,9 @@ export const listContacts = async (req: Request, res: Response): Promise<Respons
 }
 
 export const acceptConnection = async (req: Request, res: Response): Promise<Response<string>> => {
-    const { connectionID }: {connectionID: string} = req.body;
+    const { _id } = req.params;
 
-    Connection.findByIdAndUpdate(connectionID, {status: StatusEnum.accepted});
+    await Connection.findByIdAndUpdate(_id, {status: StatusEnum.accepted});
 
     return res.status(201).send('Connection confirmed');
 }

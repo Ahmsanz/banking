@@ -1,5 +1,6 @@
 import express from "express";
-import { createConnection, deleteConnection, listContacts, readAllConnections } from '../controllers/connection.controller';
+import { connection } from "mongoose";
+import { acceptConnection, createConnection, deleteConnection, listContacts, readAllConnections } from '../controllers/connection.controller';
 import { checkConnection } from "../services/connection.service";
 
 
@@ -10,6 +11,8 @@ connectionRouter.post('/', createConnection);
 connectionRouter.get('/', readAllConnections);
 
 connectionRouter.get('/list', listContacts);
+
+connectionRouter.put('/:_id/confirm', acceptConnection);
 
 connectionRouter.delete('/:_id', deleteConnection);
 
