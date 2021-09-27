@@ -13,8 +13,8 @@ const PORT = 3000;
 connect(mongoUri as string)
     .then(() => console.log('Connection to Mongo DB established'))
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.get('/', (req, res) => {
   res.send('You are now accessing the API. Welcome!');
