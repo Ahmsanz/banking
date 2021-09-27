@@ -43,4 +43,4 @@ $npm run start:dev
 ```
 
 ### Author
-Adrián Mohmed Sanz, backend developer @ Kubide Tech Builder
+Adrián Mohmed Sanz, backend developer.
