@@ -20,7 +20,7 @@ export const checkConnection = async (req: Request, res: Response, next: NextFun
 
     const sharedConnections = await Connection.find({ $or: [{owner: sender, contact: receiver}, {owner: receiver, contact: sender}]});
 
-    if (!sharedConnections.length) return res.status(401).send('Transaction unauthorized. Users must be connected.')
+    if (sharedConnections.length < 2) return res.status(401).send('Transaction unauthorized. Users must be connected.')
 
     next();
 }
