@@ -3,6 +3,7 @@ import { UserInterface } from "../../interfaces/user.interface";
 import { UserSchema } from "../schemas/user.schema";
 import * as jwt from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
+import { secretOrKey } from "../../config/config";
 
 const User = model('user', UserSchema);
 
@@ -46,7 +47,7 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
 
    if (!token) return res.status(401).send('User unauthorized.')
 
-   jwt.verify(token, 'secret' as string, (err: any, user) => {
+   jwt.verify(token, secretOrKey as string, (err: any, user) => {
       if (err) return res.status(403).send(`Something went wrong while authenticating the provided token: \n ${err}`);
       req.body.user = user;
       next();

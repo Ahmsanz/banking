@@ -4,6 +4,7 @@ import { UserSchema } from '../schemas/user.schema';
 import { model } from 'mongoose';
 import { checkPassword, createPassword } from '../services/user.service';
 import * as jwt from 'jsonwebtoken';
+import { secretOrKey } from '../../config/config';
 
 const User = model('user', UserSchema);
 
@@ -34,7 +35,7 @@ export const login = async (req: Request, res: Response): Promise<Response<objec
 
     const user = await User.findOne({firstName, password}) as unknown as UserInterface;
 
-    const token =  jwt.sign({...user, login: new Date().toISOString()}, 'secret', {
+    const token =  jwt.sign({...user, login: new Date().toISOString()}, secretOrKey as string, {
         expiresIn: '15 minutes'
     });
 
