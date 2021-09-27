@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
 
 app.use('/accounts', authenticateToken, accountRouter);
 app.use('/users', userRouter);
-app.use('/transactions', authenticateToken, transactionRouter);
+app.use('/transactions', transactionRouter);
 app.use('/connections', authenticateToken, connectionRouter);
 
 app.listen(PORT, () => {

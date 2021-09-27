@@ -34,13 +34,13 @@ export const login = async (req: Request, res: Response): Promise<Response<objec
 
     const user = await User.findOne({firstName, password}) as unknown as UserInterface;
 
-    const token =  jwt.sign({user: user.lastName, login: new Date().toISOString(), password: user.password}, 'secret', {
+    const token =  jwt.sign({...user, login: new Date().toISOString()}, 'secret', {
         expiresIn: '15 minutes'
     });
 
     if (!token) return res.status(500).send('Something went wrong, try again!');
 
-    return res.status(201).send({msg: 'Login successful. Welcome! \n Please, use this token in all your subsequent requests', token});
+    return res.status(201).send({msg: 'Login successful. Welcome! Please, use this token in all your subsequent requests', token});
 }
 
 export const readAllUsers = async (req: Request, res: Response): Promise<Response<UserInterface[]>> => {    

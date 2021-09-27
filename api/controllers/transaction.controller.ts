@@ -42,7 +42,8 @@ export const createTransaction = async (req: Request, res: Response): Promise<Re
 export const readAllTransactions = async (req: Request, res: Response): Promise<Response<TransactionInterface[]>> => {    
     try {
         const { query } = req;
-        const transactions = await Transaction.find({query});
+        const transactions = await Transaction.find({...query, owner: req.body.user._doc._id })
+            .populate(['sender', 'receiver', 'senderAccount', 'receiverAccount']);
         
         return res.status(200).send(transactions);
     } catch (err) {

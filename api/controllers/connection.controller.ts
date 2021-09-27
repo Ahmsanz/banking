@@ -13,7 +13,7 @@ export const createConnection = async (req: Request, res: Response): Promise<Res
         const { receiver }: {receiver: number} = req.body;
         const receiverAccount = await findAccountDetailsByNumber(receiver);
         const newConnection = new Connection({
-            owner: '61519287363601b3518e6ec5', //TODO: find from token
+            owner: req.body.user._doc._id,
             contact: receiverAccount.owner,
             receiverAccount,
             status: StatusEnum.pending,
@@ -42,7 +42,7 @@ export const readAllConnections = async (req: Request, res: Response): Promise<R
 
 export const listContacts = async (req: Request, res: Response): Promise<Response<UserInterface[]>> => {
     try {
-        const connections = await Connection.find({owner: '61519287363601b3518e6ec5'})
+        const connections = await Connection.find({owner: req.body.user._doc._id })
             .populate(['owner', 'contact', 'receiverAccount']) as unknown  as ConnectionInterface[];
             
         const contacts = connections.map( connection => {
@@ -57,6 +57,14 @@ export const listContacts = async (req: Request, res: Response): Promise<Respons
     } catch (err) {
         throw err;
     }
+}
+
+export const acceptConnection = async (req: Request, res: Response): Promise<Response<string>> => {
+    const { connectionID }: {connectionID: string} = req.body;
+
+    Connection.findByIdAndUpdate(connectionID, {status: StatusEnum.accepted});
+
+    return res.status(201).send('Connection confirmed');
 }
 
 export const deleteConnection = async (req: Request, res: Response): Promise<Response<string>> => {

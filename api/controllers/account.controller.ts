@@ -26,7 +26,7 @@ export const createAccount = async (req: Request, res: Response): Promise<Respon
 export const readAllAccounts = async (req: Request, res: Response): Promise<Response<AccountInterface[]>> => {    
     try {
         const { query } = req;
-        const accounts = await Account.find({query})
+        const accounts = await Account.find({...query, owner: req.body.user._doc._id})
             .populate('owner');
         
         return res.status(200).send(accounts);
