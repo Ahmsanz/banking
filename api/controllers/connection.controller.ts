@@ -3,6 +3,7 @@ import { ConnectionSchema } from '../schemas/connection.schema';
 import { model } from 'mongoose';
 import { findAccountDetailsByNumber } from '../services/account.service';
 import { ConnectionInterface, StatusEnum } from '../../interfaces/connection.interface';
+import { UserInterface } from '../../interfaces/user.interface';
 
 
 const Connection = model('connection', ConnectionSchema);
@@ -37,6 +38,25 @@ export const readAllConnections = async (req: Request, res: Response): Promise<R
     } catch (err) {
         throw err;
     }    
+}
+
+export const listContacts = async (req: Request, res: Response): Promise<Response<UserInterface[]>> => {
+    try {
+        const connections = await Connection.find({owner: '61519287363601b3518e6ec5'})
+            .populate(['owner', 'contact', 'receiverAccount']) as unknown  as ConnectionInterface[];
+            
+        const contacts = connections.map( connection => {
+            return { 
+                firstName: connection.contact.firstName,
+                lastName: connection.contact.lastName,
+                age: connection.contact.age
+            }            
+        });
+        
+        return res.status(200).send(contacts);
+    } catch (err) {
+        throw err;
+    }
 }
 
 export const deleteConnection = async (req: Request, res: Response): Promise<Response<string>> => {
