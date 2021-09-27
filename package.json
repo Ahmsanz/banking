@@ -18,6 +18,7 @@
   "license": "ISC",
   "devDependencies": {
     "@types/express": "^4.17.13",
+    "@types/jsonwebtoken": "^8.5.5",
     "@types/mongoose": "^5.11.97",
     "@types/node": "^16.9.4",
     "dotenv": "^10.0.0",
@@ -28,6 +29,7 @@
   "dependencies": {
     "csv-writer": "^1.6.0",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.7"
   }
 }

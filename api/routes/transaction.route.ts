@@ -1,15 +1,16 @@
 import express from "express";
 import { createTransaction, deleteTransaction, getBankReport, readAllTransactions } from '../controllers/transaction.controller';
+import { authenticateToken } from "../services/user.service";
 
 
-const transactionRouter = express()
+const transactionRouter = express();
 
-transactionRouter.post('/', createTransaction);
+transactionRouter.post('/',authenticateToken, createTransaction);
 
-transactionRouter.get('/', readAllTransactions);
+transactionRouter.get('/', authenticateToken, readAllTransactions);
 
 transactionRouter.get('/bank', getBankReport);
 
-transactionRouter.delete('/:_id', deleteTransaction);
+transactionRouter.delete('/:_id', authenticateToken, deleteTransaction);
 
 export default transactionRouter;

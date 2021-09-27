@@ -2,7 +2,8 @@ import { UserInterface } from '../../interfaces/user.interface';
 import { Request, Response } from 'express';
 import { UserSchema } from '../schemas/user.schema';
 import { model } from 'mongoose';
-import { createPassword } from '../services/user.service';
+import { checkPassword, createPassword } from '../services/user.service';
+import * as jwt from 'jsonwebtoken';
 
 const User = model('user', UserSchema);
 
@@ -22,6 +23,24 @@ export const createUser = async (req: Request, res: Response): Promise<Response<
     } catch (err) {
         throw err;
     }
+}
+
+export const login = async (req: Request, res: Response): Promise<Response<object | string>> => {
+    const { firstName, password } = req.body;
+
+    const check = await checkPassword(firstName, password);
+
+    if (!check) return res.status(403).send('Access denied')
+
+    const user = await User.findOne({firstName, password}) as unknown as UserInterface;
+
+    const token =  jwt.sign({user: user.lastName, login: new Date().toISOString(), password: user.password}, 'secret', {
+        expiresIn: '15 minutes'
+    });
+
+    if (!token) return res.status(500).send('Something went wrong, try again!');
+
+    return res.status(201).send({msg: 'Login successful. Welcome! \n Please, use this token in all your subsequent requests', token});
 }
 
 export const readAllUsers = async (req: Request, res: Response): Promise<Response<UserInterface[]>> => {    
