@@ -22,10 +22,6 @@ export const ConnectionSchema: Schema = new Schema(
             ref: 'account',
             required: true,
         },
-        amount: {
-            type: Number,
-            required: true,
-        },
         connectionDate: {
             type: Date,
             required: true,

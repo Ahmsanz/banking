@@ -26,6 +26,17 @@ export const findAccountDetails = async (accountId: string): Promise<AccountInte
     }    
 }
 
+export const findAccountDetailsByNumber = async (number: number): Promise<AccountInterface> => {
+    try {
+        const account = await Account.findOne({ number })
+        .populate('owner');
+
+        return account  as unknown as AccountInterface;
+    } catch (err){
+        throw err;
+    }
+}
+
 export const updateAccountsFunds = async (senderAccount: AccountInterface, receiverAccount: AccountInterface, amount: number): Promise<void> => {
     await Account.findOneAndUpdate({ number: senderAccount.number }, { funds: senderAccount.funds - amount});
     await Account.findOneAndUpdate({ number: receiverAccount.number }, { funds: receiverAccount.funds + amount});
