@@ -1,2 +1,8 @@
 # Node modules
 /node_modules
+
+# Output files
+/build
+
+# Sensitive info
+.env

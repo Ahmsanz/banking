@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose';
 
-export const User: Schema = new Schema(
+export const UserSchema: Schema = new Schema(
     {
         firstName: {
             type: String,
@@ -13,6 +13,10 @@ export const User: Schema = new Schema(
         age: {
             type: Number,
             required: true,
+        },
+        password: {
+            type: String,
+            required: true
         }
     },
     { timestamps: true }

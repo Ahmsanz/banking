@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose';
 
-export const Connection: Schema = new Schema(
+export const ConnectionSchema: Schema = new Schema(
     {
         owner: {
             type: Schema.Types.ObjectId,
@@ -20,10 +20,6 @@ export const Connection: Schema = new Schema(
         receiverAccount: {
             type: Schema.Types.ObjectId,
             ref: 'account',
-            required: true,
-        },
-        amount: {
-            type: Number,
             required: true,
         },
         connectionDate: {

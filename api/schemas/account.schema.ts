@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose';
 
-export const Account: Schema = new Schema(
+export const AccountSchema: Schema = new Schema(
     {
         owner: {
             type: Schema.Types.ObjectId,
@@ -15,11 +15,11 @@ export const Account: Schema = new Schema(
             type: Date,
             required: true,
         },
-        funds: [{
+        funds: {
             type: Number,
             required: false,
             default: 0,
-        }]
+        }
     },
     { timestamps: true }
 )

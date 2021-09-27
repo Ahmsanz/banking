@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose';
 
-export const Transaction: Schema = new Schema(
+export const TransactionSchema: Schema = new Schema(
     {
         sender: {
             type: Schema.Types.ObjectId,

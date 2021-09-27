@@ -4,7 +4,8 @@
   "description": "Small banking app backend service",
   "main": "app.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "start:dev": "tsc-watch --onSuccess \"nodemon --require dotenv/config ./build/main.js\""
   },
   "keywords": [
     "banking",
@@ -16,10 +17,19 @@
   "author": "Ahmsanz",
   "license": "ISC",
   "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/jsonwebtoken": "^8.5.5",
+    "@types/mongoose": "^5.11.97",
+    "@types/node": "^16.9.4",
+    "dotenv": "^10.0.0",
     "ts-node": "^10.2.1",
+    "tsc-watch": "^4.5.0",
     "typescript": "^4.4.3"
   },
   "dependencies": {
+    "csv-writer": "^1.6.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.7"
   }
 }
