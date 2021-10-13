@@ -16,7 +16,8 @@ export const UserSchema: Schema = new Schema(
         },
         password: {
             type: String,
-            required: true
+            required: true,
+            length: 14
         }
     },
     { timestamps: true }
