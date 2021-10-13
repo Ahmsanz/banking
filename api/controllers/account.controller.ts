@@ -19,7 +19,9 @@ export const createAccount = async (req: Request, res: Response): Promise<Respon
 
         return res.status(201).send(accountSaved);
     } catch (err) {
-        throw err;
+        console.log('something went wrong')
+        console.log(err);
+        return res.status(500).json({msg: 'Something went wrong', error: err});
     }
 }
 
@@ -31,7 +33,9 @@ export const readAllAccounts = async (req: Request, res: Response): Promise<Resp
         
         return res.status(200).send(accounts);
     } catch (err) {
-        throw err;
+        console.log('something went wrong')
+        console.log(err);
+        return res.status(500).json({msg: 'Something went wrong', error: err});
     }    
 }
 
@@ -47,7 +51,9 @@ export const updateAccount = async (req: Request, res: Response): Promise<Respon
 
         return res.status(204).send(updatedAccount);
     } catch (err) {
-        throw err;
+        console.log('something went wrong')
+        console.log(err);
+        return res.status(500).json({msg: 'Something went wrong', error: err});
     }
 }
 
@@ -59,6 +65,8 @@ export const deleteAccount = async (req: Request, res: Response): Promise<Respon
 
         return res.status(204).send('Account deleted');
     } catch (err) {
-        throw err;
+        console.log('something went wrong')
+        console.log(err);
+        return res.status(500).json({msg: 'Something went wrong', error: err});
     }    
 }

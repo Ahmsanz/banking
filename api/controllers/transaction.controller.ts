@@ -35,7 +35,9 @@ export const createTransaction = async (req: Request, res: Response): Promise<Re
 
         return res.status(201).send(transactionSaved);
     } catch (err) {
-        throw err;
+        console.log('something went wrong')
+        console.log(err);
+        return res.status(500).json({msg: 'Something went wrong', error: err});
     }
 }
 
@@ -47,7 +49,9 @@ export const readAllTransactions = async (req: Request, res: Response): Promise<
         
         return res.status(200).send(transactions);
     } catch (err) {
-        throw err;
+        console.log('something went wrong')
+        console.log(err);
+        return res.status(500).json({msg: 'Something went wrong', error: err});
     }    
 }
 
@@ -59,7 +63,9 @@ export const deleteTransaction = async (req: Request, res: Response): Promise<Re
 
         return res.status(204).send('Transaction deleted');
     } catch (err) {
-        throw err;
+        console.log('something went wrong')
+        console.log(err);
+        return res.status(500).json({msg: 'Something went wrong', error: err});
     }    
 }
 
@@ -69,6 +75,8 @@ export const getBankReport = async (req: Request, res: Response): Promise<Respon
 
         return res.status(201).send(result);
     } catch (err) {
-        throw err;
+        console.log('something went wrong')
+        console.log(err);
+        return res.status(500).json({msg: 'Something went wrong', error: err});
     }
 }

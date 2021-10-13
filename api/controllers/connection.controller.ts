@@ -24,7 +24,9 @@ export const createConnection = async (req: Request, res: Response): Promise<Res
 
         return res.status(201).send(connectionSaved);
     } catch (err) {
-        throw err;
+        console.log('something went wrong')
+        console.log(err);
+        return res.status(500).json({msg: 'Something went wrong', error: err});
     }
 }
 
@@ -36,7 +38,9 @@ export const readAllConnections = async (req: Request, res: Response): Promise<R
         
         return res.status(200).send(connections);
     } catch (err) {
-        throw err;
+        console.log('something went wrong')
+        console.log(err);
+        return res.status(500).json({msg: 'Something went wrong', error: err});
     }    
 }
 
@@ -55,16 +59,24 @@ export const listContacts = async (req: Request, res: Response): Promise<Respons
         
         return res.status(200).send(contacts);
     } catch (err) {
-        throw err;
+        console.log('something went wrong')
+        console.log(err);
+        return res.status(500).json({msg: 'Something went wrong', error: err});
     }
 }
 
 export const acceptConnection = async (req: Request, res: Response): Promise<Response<string>> => {
-    const { _id } = req.params;
+    try {
+        const { _id } = req.params;
 
-    await Connection.findByIdAndUpdate(_id, {status: StatusEnum.accepted});
+        await Connection.findByIdAndUpdate(_id, {status: StatusEnum.accepted});
 
-    return res.status(201).send('Connection confirmed');
+        return res.status(201).send('Connection confirmed');
+    } catch (err) {
+        console.log('something went wrong')
+        console.log(err);
+        return res.status(500).json({msg: 'Something went wrong', error: err});
+    }
 }
 
 export const deleteConnection = async (req: Request, res: Response): Promise<Response<string>> => {
@@ -75,6 +87,8 @@ export const deleteConnection = async (req: Request, res: Response): Promise<Res
 
         return res.status(204).send('Connection deleted');
     } catch (err) {
-        throw err;
+        console.log('something went wrong')
+        console.log(err);
+        return res.status(500).json({msg: 'Something went wrong', error: err});
     }    
 }
