@@ -36,13 +36,17 @@ It implements some simple securization measures like authenticating users via js
 ## How to start the application
 - Install all the dependencies with
 ```bash
-$npm install 
+$ npm install 
 ```
 
 - Run the application with 
 ```bash
-$npm run start:dev
+$ npm run start:dev
 ```
+## Using the application
+- You must register a new user or log in to the app with an existing one.
+- Bear in mind that you will be provided a token valid for 15 minutes only
+- For such time you'll be now granted access to the other routes. After expiration, you will need to log in again, obtaining a new token.
 
 ### Author
 Adrián Mohmed Sanz, backend javascript developer.
