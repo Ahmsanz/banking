@@ -32,11 +32,13 @@ export const login = async (req: Request, res: Response): Promise<Response<objec
     try {
         const { firstName, password } = req.body;
 
+        const user = await User.findOne({firstName}) as unknown as UserInterface;
+
+        if (!user) return res.status(404).json({err: 'User not found', msg: `Sorry, we don't seem to recall that name.  Try again and double check the spelling!`})
+
         const check = await checkPassword(firstName, password);
 
         if (!check) return res.status(403).json('Access denied! \n The password you used does not match with ours :(')
-
-        const user = await User.findOne({firstName, password}) as unknown as UserInterface;
 
         const token =  jwt.sign({...user, login: new Date().toISOString()}, secretOrKey as string, {
             expiresIn: '15 minutes'
