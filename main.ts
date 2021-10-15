@@ -6,6 +6,7 @@ import userRouter from './api/routes/user.route';
 import transactionRouter from './api/routes/transaction.route';
 import connectionRouter from './api/routes/connection.route';
 import { authenticateToken } from './api/services/user.service';
+import morgan from 'morgan';
 
 const app = express();
 const PORT = 3000;
@@ -15,6 +16,8 @@ connect(mongoUri as string)
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+app.use(morgan('tiny'));
 
 app.get('/', (req, res) => {
   res.send('You are now accessing the API. Welcome!');

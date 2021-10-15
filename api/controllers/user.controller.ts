@@ -22,26 +22,34 @@ export const createUser = async (req: Request, res: Response): Promise<Response<
 
         return res.status(201).send(userSaved);
     } catch (err) {
-        throw err;
+        console.log('something went wrong')
+        console.log(err);
+        return res.status(500).json({msg: 'Something went wrong', error: err});
     }
 }
 
 export const login = async (req: Request, res: Response): Promise<Response<object | string>> => {
-    const { firstName, password } = req.body;
+    try {
+        const { firstName, password } = req.body;
 
-    const check = await checkPassword(firstName, password);
+        const check = await checkPassword(firstName, password);
 
-    if (!check) return res.status(403).send('Access denied')
+        if (!check) return res.status(403).json('Access denied! \n The password you used does not match with ours :(')
 
-    const user = await User.findOne({firstName, password}) as unknown as UserInterface;
+        const user = await User.findOne({firstName, password}) as unknown as UserInterface;
 
-    const token =  jwt.sign({...user, login: new Date().toISOString()}, secretOrKey as string, {
-        expiresIn: '15 minutes'
-    });
+        const token =  jwt.sign({...user, login: new Date().toISOString()}, secretOrKey as string, {
+            expiresIn: '15 minutes'
+        });
 
-    if (!token) return res.status(500).send('Something went wrong, try again!');
+        if (!token) return res.status(500).json('Something went wrong, try again!');
 
-    return res.status(201).send({msg: 'Login successful. Welcome! Please, use this token in all your subsequent requests', token});
+        return res.status(201).json({msg: 'Login successful. Welcome! Please, use this token in all your subsequent requests', token});
+    } catch (err) {
+        console.log('something went wrong')
+        console.log(err);
+        return res.status(500).json({msg: 'Something went wrong', error: err});
+    }    
 }
 
 export const readAllUsers = async (req: Request, res: Response): Promise<Response<UserInterface[]>> => {    
@@ -51,7 +59,9 @@ export const readAllUsers = async (req: Request, res: Response): Promise<Respons
         
         return res.status(200).send(users);
     } catch (err) {
-        throw err;
+        console.log('something went wrong')
+        console.log(err);
+        return res.status(500).json({msg: 'Something went wrong', error: err});
     }    
 }
 
@@ -67,7 +77,9 @@ export const updateUser = async (req: Request, res: Response): Promise<Response<
         
         return res.status(204).send(updatedUser);
     } catch (err) {
-        throw err;
+        console.log('something went wrong')
+        console.log(err);
+        return res.status(500).json({msg: 'Something went wrong', error: err});
     }
 }
 
@@ -77,8 +89,10 @@ export const deleteUser = async (req: Request, res: Response): Promise<Response<
 
         await User.findByIdAndRemove(_id);
 
-        return res.status(204).send('User deleted');
+        return res.status(204).json('User deleted');
     } catch (err) {
-        throw err;
+        console.log('something went wrong')
+        console.log(err);
+        return res.status(500).json({msg: 'Something went wrong', error: err});
     }    
 }
